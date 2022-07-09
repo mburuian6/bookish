@@ -66,7 +66,7 @@ class PdfsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pdf_params
-      params.require(:pdf).permit(:title, :last_accessed, :current_page)
+      params.require(:pdf).permit(:title, :pdf_attachment)
     end
 
   def set_last_accessed
