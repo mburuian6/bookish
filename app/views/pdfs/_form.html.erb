@@ -17,13 +17,8 @@
   </div>
 
   <div>
-    <%= form.label :last_accessed, style: "display: block" %>
-    <%= form.datetime_field :last_accessed %>
-  </div>
-
-  <div>
-    <%= form.label :current_page, style: "display: block" %>
-    <%= form.number_field :current_page %>
+    <%= form.label 'PDF:', style: "display: block" %>
+    <%= form.file_field :pdf_attachment %>
   </div>
 
   <div>
