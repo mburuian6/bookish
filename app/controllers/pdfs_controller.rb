@@ -1,5 +1,6 @@
 class PdfsController < ApplicationController
   before_action :set_pdf, only: %i[ show edit update destroy ]
+  before_action :set_last_accessed, only: %i[ show edit update ]
 
   # GET /pdfs or /pdfs.json
   def index
@@ -67,4 +68,8 @@ class PdfsController < ApplicationController
     def pdf_params
       params.require(:pdf).permit(:title, :last_accessed, :current_page)
     end
+
+  def set_last_accessed
+    @pdf = DateTime.now
+  end
 end
