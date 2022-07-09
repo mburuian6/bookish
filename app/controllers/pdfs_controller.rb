@@ -1,6 +1,6 @@
 class PdfsController < ApplicationController
   before_action :set_pdf, only: %i[ show edit update destroy ]
-  before_action :set_last_accessed, only: %i[ show edit update ]
+  before_action :set_last_accessed, only: %i[ update ]
 
   # GET /pdfs or /pdfs.json
   def index
@@ -23,7 +23,7 @@ class PdfsController < ApplicationController
   # POST /pdfs or /pdfs.json
   def create
     @pdf = Pdf.new(pdf_params)
-
+    set_last_accessed
     respond_to do |format|
       if @pdf.save
         format.html { redirect_to pdf_url(@pdf), notice: "Pdf was successfully created." }
@@ -70,6 +70,6 @@ class PdfsController < ApplicationController
     end
 
   def set_last_accessed
-    @pdf = DateTime.now
+    @pdf.last_accessed = DateTime.now
   end
 end
