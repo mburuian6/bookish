@@ -14,4 +14,17 @@
     <%= pdf.current_page %>
   </p>
 
+  <p>
+    <strong>Current pdf:</strong>
+    <% if pdf.pdf_attachment.attached? %>
+      <% if pdf.pdf_attachment.previewable? %>
+        <%= rails_blob_path(pdf.pdf_attachment, disposition: "preview") %>
+      <% else %>
+        <%= rails_blob_path(pdf.pdf_attachment, disposition: "inline") %>
+      <% end %>
+    <% else %>
+      No attachment
+    <% end %>
+  </p>
+
 </div>
