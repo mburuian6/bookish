@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_09_065408) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_09_090403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_09_065408) do
   create_table "pdfs", force: :cascade do |t|
     t.string "title"
     t.datetime "last_accessed"
-    t.integer "current_page"
+    t.integer "current_page", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
