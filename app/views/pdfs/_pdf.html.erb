@@ -7,7 +7,6 @@
     Current pdf:
     <% if pdf.pdf_attachment.attached? %>
       <% if pdf.pdf_attachment.previewable? %>
-        <%#= image_tag pdf.pdf_attachment.preview(resize_to_limit: [100, 100]) %>
         <%= link_to pdf.title, rails_blob_path(pdf.pdf_attachment, disposition: "inline") %>
       <% else %>
         <%= link_to pdf.title, rails_blob_path(pdf.pdf_attachment, disposition: "inline") %>

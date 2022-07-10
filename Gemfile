@@ -49,7 +49,6 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 # pdf preview
-gem 'poppler', '~> 3.0', '>= 3.0.7'
 
 # ui
 gem "jquery-rails"
