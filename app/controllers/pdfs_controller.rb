@@ -73,15 +73,15 @@ class PdfsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pdf
-      @pdf = Pdf.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pdf
+    @pdf = Pdf.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def pdf_params
-      params.require(:pdf).permit(:title, :pdf_attachment)
-    end
+  # Only allow a list of trusted parameters through.
+  def pdf_params
+    params.require(:pdf).permit(:title, :pdf_attachment)
+  end
 
   def set_last_accessed
     @pdf.last_accessed = DateTime.now
