@@ -6,11 +6,7 @@
   <p>
     Current pdf:
     <% if pdf.pdf_attachment.attached? %>
-      <% if pdf.pdf_attachment.previewable? %>
-        <%= link_to pdf.title, rails_blob_path(pdf.pdf_attachment, disposition: "inline") %>
-      <% else %>
-        <%= link_to pdf.title, rails_blob_path(pdf.pdf_attachment, disposition: "inline") %>
-      <% end %>
+        <%= link_to pdf.title, cloudinary_url(pdf.pdf_attachment.key,options = {disposition: "inline"}) %>
     <% else %>
       No attachment
     <% end %>

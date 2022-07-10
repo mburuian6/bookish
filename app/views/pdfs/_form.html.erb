@@ -18,12 +18,12 @@
 
   <div class="margin-10">
     <%= form.label 'PDF:', style: "display: block" %>
-    <%= form.file_field :pdf_attachment, accept: 'application/pdf' %>
+    <%= form.file_field :pdf_attachment, accept: 'application/pdf', direct_upload: true %>
   </div>
 
   <div>
     Current Attachment:
-    <%= pdf.pdf_attachment.attached? ? link_to(pdf.title, rails_blob_path(pdf.pdf_attachment, disposition: "inline")) : 'None attached' %>
+    <%= pdf.pdf_attachment.attached? ? link_to(pdf.title, cloudinary_url(pdf.pdf_attachment.key,options = {disposition: "inline"})) : 'None attached' %>
   </div>
 
   <div>
