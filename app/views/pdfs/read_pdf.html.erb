@@ -1,6 +1,7 @@
 <h4 class="">Read PDF</h4>
 
 <%= link_to "Home", pdfs_path %>
+<button onclick="nextPage()"> Next </button>
 <button> <%= link_to 'Refresh', pdf_read_pdf_path(@pdf) %> </button>
 
 <div class="">
@@ -46,6 +47,57 @@
                 })
             })
         })
+
+        function nextPage(){
+            var loadingTask = pdfjsLib.getDocument({data: pdfData});
+            loadingTask.promise.then(function (pdf) {
+                if (universalPageCounter < pdf.numPages) {
+                    universalPageCounter += 1;
+                    pdf.getPage(universalPageCounter).then(function (page) {
+                        loadPage(page)
+                    });
+                    savePage(false);
+                }
+            });
+        }
+
+        function loadPage(page) {
+            var scale = 1.0;
+            var viewport = page.getViewport(scale);
+            var canvas = document.getElementById('the-canvas');
+            var context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            var renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext).then(function () {
+                $(document).trigger("pagerendered");
+                return page.getTextContent();
+            }, function () {
+                // console.log("ERROR");
+                alert('Error opening new page. Try again or contact support')
+            });
+        }
+
+        function savePage(reload) {
+            var pdf_id = $('#pdfId').val();
+            $.ajax({
+                url: '/pdfs/save_page',
+                type: 'PUT',
+                data: {
+                    authenticity_token: $('[name="csrf-token"]')[0].content,
+                    page: universalPageCounter,
+                    pdf_id: pdf_id
+                },
+                success: function () {
+                    if (reload === true) location.reload();
+                }
+            }).fail(function (response) {
+                alert("Failed to save, please try again or contact the administrator");
+            });
+        }
 
 </script>
 
