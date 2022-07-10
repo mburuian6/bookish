@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :pdfs
+  resources :pdfs do
+    collection do
+      put :save_page
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
