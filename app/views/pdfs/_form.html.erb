@@ -11,17 +11,22 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="margin-10">
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
   </div>
 
-  <div>
+  <div class="margin-10">
     <%= form.label 'PDF:', style: "display: block" %>
-    <%= form.file_field :pdf_attachment %>
+    <%= form.file_field :pdf_attachment, accept: 'application/pdf' %>
   </div>
 
   <div>
-    <%= form.submit %>
+    Current Attachment:
+    <%= pdf.pdf_attachment.attached? ? link_to(pdf.title, rails_blob_path(pdf.pdf_attachment, disposition: "inline")) : 'None attached' %>
+  </div>
+
+  <div>
+    <%= form.submit class:'btn btn-primary margin-10' %>
   </div>
 <% end %>
