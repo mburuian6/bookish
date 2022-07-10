@@ -92,13 +92,32 @@
                     pdf_id: pdf_id
                 },
                 success: function () {
+                    showFeedback(true);
                     if (reload === true) location.reload();
                 }
             }).fail(function (response) {
+                showFeedback(false);
                 alert("Failed to save, please try again or contact the administrator");
             });
         }
 
+        function showFeedback(value) {
+            var icon = value ? 'success' : 'error';
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            })
+
+            Toast.fire({
+                icon: icon,
+                width: 100
+            })
+        }
+
+    }
 </script>
 
 
