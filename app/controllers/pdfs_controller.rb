@@ -61,6 +61,14 @@ class PdfsController < ApplicationController
   def read_pdf
     render 'show', flash[:notice] => 'no pdf attached' and return unless @pdf.pdf_attachment.attached?
 
+    if params[:newpage]
+      new_page = params[:newpage]
+      new_page = new_page.to_i.abs
+
+      # TODO: Compare page numbers before processing
+      @pdf.update(current_page: new_page)
+    end
+
     @pdf_attachment = Base64.encode64(@pdf.pdf_attachment.download)
   end
 
