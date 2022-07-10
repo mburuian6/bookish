@@ -3,6 +3,7 @@
 <%= render @pdf %>
 
 <div>
+  <%= link_to 'Read this pdf', pdf_read_pdf_path(@pdf)%> |
   <%= link_to "Edit this pdf", edit_pdf_path(@pdf) %> |
   <%= link_to "Back to pdfs", pdfs_path %>
 
