@@ -1,13 +1,19 @@
 <h4 class="">Read PDF</h4>
 
-<%= link_to "Home", pdfs_path %>
-<button onclick="prevPage()"> Prev </button>
-<button onclick="nextPage()"> Next </button>
-<button> <%= link_to 'Refresh', pdf_read_pdf_path(@pdf) %> </button>
+<button class="btn btn-sm mr-2"> <%= link_to "Home", pdfs_path %> </button> |
+<button onclick="prevPage()" class="btn btn-sm mr-2"> Prev </button> |
+<button onclick="nextPage()" class="btn btn-sm mr-2"> Next </button> |
+<button class="btn btn-sm mr-2"> <%= link_to 'Refresh', pdf_read_pdf_path(@pdf) %> </button>
 
-<div class="">
-  <div id="pageContainer" class="pdfViewer singlePageView dropzone nopadding" style="background-color:transparent">
-    <canvas id="the-canvas" style=""></canvas>
+<div class="row p-2">
+  <div class="col-md-12" id="pdfManager" style="">
+    <div class="row" id="selectorContainer">
+      <div class="col-fixed-605">
+        <div id="pageContainer" class="pdfViewer singlePageView dropzone nopadding" style="background-color:transparent">
+          <canvas id="the-canvas" style=""></canvas>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
