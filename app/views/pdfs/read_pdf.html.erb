@@ -4,7 +4,7 @@
 <button onclick="prevPage()" class="btn btn-sm mr-2"> Prev </button> |
 <button onclick="nextPage()" class="btn btn-sm mr-2"> Next </button> |
 <button class="btn btn-sm "> <%= link_to "Back", pdf_path(@pdf) %> </button> |
-<button class="btn btn-sm mr-2"> <%= link_to 'Refresh', read_pdf_pdf_path(@pdf) %> </button> | 
+<button class="btn btn-sm mr-2"> <%= link_to 'Refresh', read_pdf_pdf_path(@pdf) %> </button> |
 <form action="<%= read_pdf_pdf_path(@pdf) %>" method="get" id="jumppage">
   <input type="number" name="newpage" value="<%= @pdf.current_page %>" />
   <button class="btn btn-default btn-success btn-sm" type="submit">Jump To Page</button>
