@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :pdfs do
-    get :read_pdf
+    member do
+      get :read_pdf
+    end
 
     collection do
       put :save_page

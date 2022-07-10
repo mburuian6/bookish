@@ -1,5 +1,5 @@
 class PdfsController < ApplicationController
-  before_action :set_pdf, only: %i[ show edit update destroy ]
+  before_action :set_pdf, only: %i[ show edit update destroy read_pdf]
   before_action :set_last_accessed, only: %i[ update ]
 
   # GET /pdfs or /pdfs.json
@@ -59,7 +59,6 @@ class PdfsController < ApplicationController
   end
 
   def read_pdf
-    @pdf = Pdf.find(params[:pdf_id])
     render 'show', flash[:notice] => 'no pdf attached' and return unless @pdf.pdf_attachment.attached?
 
     @pdf_attachment = Base64.encode64(@pdf.pdf_attachment.download)
