@@ -2,13 +2,15 @@
 
 <h1>Pdfs</h1>
 
-<div id="pdfs">
-  <% @pdfs.each do |pdf| %>
-    <%= render pdf %>
-    <p>
-      <%= link_to "Show this pdf", pdf %>
-    </p>
-  <% end %>
+<div id="pdfs" style="margin-left: 5px">
+  <ol>
+      <% @pdfs.each do |pdf| %>
+        <li><%= render pdf %></li>
+        <%= link_to "Show this pdf", pdf, class: 'btn whitten btn-primary'%>
+      <% end %>
+  </ol>
 </div>
 
-<%= link_to "New pdf", new_pdf_path %>
+<button class="btn btn-warning" style="color: white; margin-top: 20px; margin-left: 5px">
+  <%= link_to "New pdf", new_pdf_path %>
+</button>

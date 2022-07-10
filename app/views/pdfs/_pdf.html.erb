@@ -1,21 +1,10 @@
-<div id="<%= dom_id pdf %>">
-  <p>
-    <strong>Title:</strong>
-    <%= pdf.title %>
+<div id="<%= dom_id pdf %>" style="margin: 5px; width: auto">
+  <p> <b><%= pdf.title %> </b></p>
+  <p> <i>Last accessed:<%= pdf.last_accessed.strftime('%Y-%m-%d %H:%M %Z') %> </i>; page: <%= pdf.current_page %>
   </p>
 
   <p>
-    <strong>Last accessed:</strong>
-    <%= pdf.last_accessed %>
-  </p>
-
-  <p>
-    <strong>Current page:</strong>
-    <%= pdf.current_page %>
-  </p>
-
-  <p>
-    <strong>Current pdf:</strong>
+    Current pdf:
     <% if pdf.pdf_attachment.attached? %>
       <% if pdf.pdf_attachment.previewable? %>
         <%#= image_tag pdf.pdf_attachment.preview(resize_to_limit: [100, 100]) %>
