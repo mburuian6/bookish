@@ -47,7 +47,7 @@
         var loadingTask = pdfjsLib.getDocument({data: pdfData});
         loadingTask.promise.then(function (pdf) {
             pdf.getPage(currentPage).then(function (page) {
-                var scale = 2.0 ; //default
+                var scale = 1.5 ; //default
                 var viewport = page.getViewport(scale); //default
                 // var container = document.getElementById('pageContainer');
 
@@ -98,7 +98,7 @@
         }
 
         function loadPage(page) {
-            var scale = 2.0 ; //default
+            var scale = 1.5 ; //default
             var viewport = page.getViewport(scale); //default
 
             var canvas = document.getElementById('the-canvas');
