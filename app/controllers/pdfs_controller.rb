@@ -58,6 +58,13 @@ class PdfsController < ApplicationController
     end
   end
 
+  def read_pdf
+    @pdf = Pdf.find(params[:pdf_id])
+    render 'show', flash[:notice] => 'no pdf attached' and return unless @pdf.pdf_attachment.attached?
+
+    @pdf_attachment = Base64.encode64(@pdf.pdf_attachment.download)
+  end
+
   def save_page
     page = JSON.parse(params[:page])
     @pdf = Pdf.find(params[:pdf_id])
