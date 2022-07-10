@@ -1,3 +1,58 @@
 <h4 class="">Read PDF</h4>
+
 <%= link_to "Home", pdfs_path %>
 <button> <%= link_to 'Refresh', pdf_read_pdf_path(@pdf) %> </button>
+
+<div class="">
+  <div id="pageContainer" class="pdfViewer singlePageView dropzone nopadding" style="background-color:transparent">
+    <canvas id="the-canvas" style=""></canvas>
+  </div>
+</div>
+
+<!-- Below the pdf base 64 rapresentation -->
+<input id="pdfBase64" type="hidden" value="<%= @pdf_attachment %>">
+<input id="pdfId" type="hidden" value="<%= @pdf.id %>">
+<input id="currentPage" type="hidden" value="<%= @pdf.current_page %>">
+
+<script>
+    var pdfSection = $('#pdfBase64')
+    var currentPage = parseInt($('#currentPage').val())
+
+    if(pdfSection.length > 0 ) {
+        var pdfData = atob(pdfSection.val());
+        var universalPageCounter = currentPage;
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.worker.min.js';
+
+        var loadingTask = pdfjsLib.getDocument({data: pdfData});
+        loadingTask.promise.then(function (pdf) {
+            pdf.getPage(currentPage).then(function (page) {
+                var scale = 1.0;
+                var viewport = page.getViewport(scale);
+                var canvas = document.getElementById('the-canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext).then(function () {
+                    $(document).trigger("pagerendered");
+                    return page.getTextContent();
+                }, function () {
+                    alert('Error loading pdf. Try again or contact support')
+                })
+            })
+        })
+
+</script>
+
+
+
+
+
+
+
+
