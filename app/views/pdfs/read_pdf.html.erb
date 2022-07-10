@@ -106,6 +106,48 @@
             });
         }
 
+        function jump_to_page() {
+            const form = document.getElementById('jumppage');
+            var new_page = 1;
+            form.addEventListener('submit', (event)=>{
+                new_page = form.elements['newpage'];
+                new_page = Math.abs(new_page)
+            })
+
+            console.log('new',new_page)
+            if(new_page === undefined || new_page === null) return;
+
+            var loadingTask = pdfjsLib.getDocument({data: pdfData});
+            loadingTask.promise.then(function (pdf) {
+                if (new_page < pdf.numPages) {
+                    universalPageCounter = new_page
+                    pdf.getPage(universalPageCounter).then(function (page) {
+                        loadPage(page)
+                    });
+
+                    var pdf_id = $('#pdfId').val();
+                    $.ajax({
+                        url: '/pdfs/jump_to_page',
+                        type: 'PUT',
+                        data: {
+                            authenticity_token: $('[name="csrf-token"]')[0].content,
+                            new_page: new_page,
+                            pdf_id: pdf_id
+                        },
+                        success: function () {
+                            showFeedback(true);
+                            if (reload === true) location.reload();
+                        }
+                    }).fail(function (response) {
+                        showFeedback(false);
+                        alert("Failed to save, please try again or contact the administrator");
+                    });
+                } else {
+                    showAlert('Page exceeds total number', 'error')
+                }
+            });
+        }
+
         function savePage(reload) {
             var pdf_id = $('#pdfId').val();
             $.ajax({
