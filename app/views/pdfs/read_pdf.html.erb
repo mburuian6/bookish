@@ -1,6 +1,7 @@
 <h4 class="">Read PDF</h4>
 
 <%= link_to "Home", pdfs_path %>
+<button onclick="prevPage()"> Prev </button>
 <button onclick="nextPage()"> Next </button>
 <button> <%= link_to 'Refresh', pdf_read_pdf_path(@pdf) %> </button>
 
@@ -57,6 +58,19 @@
                         loadPage(page)
                     });
                     savePage(false);
+                }
+            });
+        }
+
+        function prevPage(){
+            var loadingTask = pdfjsLib.getDocument({data: pdfData});
+            loadingTask.promise.then(function (pdf) {
+                if (universalPageCounter > 1) {
+                    universalPageCounter -= 1;
+                    pdf.getPage(universalPageCounter).then(function (page) {
+                        loadPage(page)
+                    });
+                    savePage(false)
                 }
             });
         }
